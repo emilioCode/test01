@@ -1,0 +1,14 @@
+<p>Dado 2 números concaténelo usando una operación matemática (No suma de cadenas) Ej: 1 y 3 = 13.  2 y 0 = 20, 0 y 2 = 2.  Utilizando números enteros.</p>
+<br/>
+<form [formGroup]="formConcat" (ngSubmit)="submitHandle()">
+  <label>First Number: </label>
+  <input type="number" formControlName="number"/>
+  <br/>
+  <br/>
+  <label>Second Number: </label>
+  <input type="number" formControlName="number2"/>
+  <br/>
+  <button type="submit" [disabled]="formConcat.invalid">Concatenar</button>
+</form>
+<br/>
+<p>{{ result }}</p>

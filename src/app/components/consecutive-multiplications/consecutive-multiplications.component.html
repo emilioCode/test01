@@ -1,0 +1,14 @@
+<p>Algoritmo que multiplique usando sumas sucesivas. </p>
+<br/>
+<form [formGroup]="form" (ngSubmit)="submitHandle()">
+  <label>Value: </label>
+  <input type="number" formControlName="number"/>
+  <br/>
+  <br/>
+  <label>(x) times: </label>
+  <input type="number" formControlName="number2"/>
+  <br/>
+  <button type="submit" [disabled]="form.invalid">Calcular</button>
+</form>
+<br/>
+<p>{{ result }}</p>

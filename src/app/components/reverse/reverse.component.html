@@ -1,0 +1,28 @@
+<p>Haga un algoritmo que invierta un número.  Ej. 321 = 123, 230 = 32.</p>
+<br/>
+<input type="number" [(ngModel)]="value">
+<button (click)="reverseStr(value)">Reversar</button>
+<br/>
+<p>{{ result }}</p>
+
+<br/>
+<p>Dado un arreglo de números, haga un programa que lo ordene. </p>
+<br/>
+<input type="number" [(ngModel)]="value2">
+<button (click)="getArrayOrdered(value2)">Ordenar</button>
+<br/>
+<p>{{ result2 }}</p>
+
+
+<br/>
+<p>Dada 2 variables numéricas, intercambie sus valores sin utilizar una tercera variable.</p>
+<br/>
+<label>First Value: </label>
+<input type="text" [(ngModel)]="val1">
+<br/>
+<label>Second Value: </label>
+<input type="text" [(ngModel)]="val2">
+<br/>
+<button (click)="IntercambiarValores()">Intercambiar</button>
+<br/>
+

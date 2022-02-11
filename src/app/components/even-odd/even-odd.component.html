@@ -1,0 +1,9 @@
+<p>Determine si un número es par.</p>
+<br/>
+<form [formGroup]="formEvenOdd" (ngSubmit)="submitHandle()">
+  <label>Number: </label>
+  <input type="number" formControlName="number"/>
+  <button type="submit" [disabled]="formEvenOdd.invalid">Evaluar</button>
+</form>
+<br/>
+<p>{{ result }}</p>
