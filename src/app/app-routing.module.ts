@@ -6,6 +6,7 @@ import { EvenOddComponent } from './components/even-odd/even-odd.component';
 import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { ReverseComponent } from './components/reverse/reverse.component';
+import { AgendaComponent } from './components/agenda/agenda.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'concatenate', component: ConcatenateComponent },
   { path: 'consecutive-multiplications', component: ConsecutiveMultiplicationsComponent },
   { path: 'algorithms', component: ReverseComponent },
+  { path: 'agenda', component: AgendaComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];
 
@@ -23,6 +25,7 @@ const routes: Routes = [
     ConcatenateComponent,
     ConsecutiveMultiplicationsComponent,
     ReverseComponent,
+    AgendaComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

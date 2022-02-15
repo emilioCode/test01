@@ -1,0 +1,23 @@
+<p>Agenda</p>
+
+<table border="1">
+  <thead>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>birthDate</th>
+    <th>email</th>
+    <th>civilStatus</th>
+    <th>Options</th>
+  </thead>
+  <tbody *ngIf="contacts$ | async as item">
+    <ng-container *ngFor="let e of item.data">
+      <td>{{ e.firstName }}</td>
+      <td>{{ e.lastName }}</td>
+      <td>{{ e.birthDate.split('T')[0] }}</td>
+      <td>{{ e.email }}</td>
+      <td>{{ e.civilStatus }}</td>
+      <td> - </td>
+    </ng-container>
+
+  </tbody>
+</table>
