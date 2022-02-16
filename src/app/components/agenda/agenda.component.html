@@ -3,7 +3,7 @@
 [iconTitle] = "'perm_contact_calendar'"
 [colorButton] = "'primary'"
 [iconButton] = "'add'"
-(clickButton) = "openDialog({}, 'create')"
+(clickButton) = "openDialog(element, 'create')"
 >
 </app-toobal>
 
@@ -31,7 +31,7 @@
     <!-- BirthDate -->
     <ng-container matColumnDef="BirthDate">
       <th mat-header-cell *matHeaderCellDef> birthDate </th>
-      <td mat-cell *matCellDef="let element"> {{element.BirthDate}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.BirthDate? element.BirthDate.split('T')[0]: element.BirthDate}} </td>
     </ng-container>
 
     <!-- TelephoneNumber -->

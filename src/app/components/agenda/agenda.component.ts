@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Observable } from 'rxjs';
+import { Contact } from 'src/app/models/Contact';
 import { HttpService } from 'src/app/services/http.service';
 import { ContactDialogComponent } from './contact-dialog/contact-dialog.component';
 
@@ -14,7 +15,7 @@ import { ContactDialogComponent } from './contact-dialog/contact-dialog.componen
 })
 export class AgendaComponent implements OnInit {
   dataSource!: MatTableDataSource<any>;
-
+  element: any = {};
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
 
@@ -33,14 +34,15 @@ export class AgendaComponent implements OnInit {
 
   ngOnInit(): void {
     this.getContacts();
-    this.http.getData("api/Contact").subscribe(res => console.log(res));
+    // this.http.getData("api/Contact").subscribe(res => console.log(res));
   }
 
   getContacts = () => {
     this.contacts$ = this.http.getData("api/Contact");
     this.contacts$.subscribe(res => {
       if(res.success){
-        this.setDataSource(res.data);
+        let contact: Contact = res.data;
+        this.setDataSource(contact);
       }else{
         console.error(res.message);
         this.setDataSource([]);
@@ -65,7 +67,7 @@ export class AgendaComponent implements OnInit {
     }
   }
 
-  openDialog = (element: Object, action: string = 'read'): void => {
+  openDialog = (element: Contact, action: string = 'read'): void => {
     const dialogRef = this.dialog.open(ContactDialogComponent, {
       height: '530px',
       width: '600px',

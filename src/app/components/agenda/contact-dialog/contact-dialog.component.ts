@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Contact } from 'src/app/models/Contact';
 import { HttpService } from 'src/app/services/http.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class ContactDialogComponent implements OnInit {
   colorButton: string = "";
   hide: boolean = true;
   isDisabled!: boolean;
-  civilStatuses: string[] = ['Soltero(a)','Casado(a)'];
+  civilStatuses: string[] = ['SOLTERO','CASADO'];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -23,35 +24,36 @@ export class ContactDialogComponent implements OnInit {
     private http: HttpService
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {console.log(this.data)
     this.swithOption(this.data.action);
   }
 
   initializeModalForm(disabled: boolean = false): void {
+    let emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     this.form = this.formBuilder.group({
       Id: [ { value: this.data.element.Id, disabled: true }  ],
       FirstName: [ this.data.element.FirstName, Validators.required ],
       LastName: [ this.data.element.LastName, Validators.required ],
-      BirthDate: [ this.data.element.BirthDate, Validators.required ],
-      TelephoneNumber: [ this.data.element.TelephoneNumber, Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g) ],
-      Email: [ this.data.element.Email ],
-      CivilStatus: [ this.data.element.CivilStatus ],
+      BirthDate: [ this.data.element.BirthDate, [ Validators.required ] ],
+      TelephoneNumber: [ this.data.element.TelephoneNumber, [ Validators.required, Validators.pattern('[- +()0-9]+') ]  /*Validators.pattern(/^[+]*[(]{0,1}[0-9]{1,3}[)]{0,1}[-\s\./0-9]*$/g) */ ],
+      Email: [ this.data.element.Email, Validators.pattern(emailPattern) ],
+      CivilStatus: [ this.data.element.CivilStatus, Validators.required ],
       Disabled: [ this.data.element.Disabled ]
     });
     this.disableComponents(disabled);
   }
 
-  handleSubmit(): void {debugger
-    const request: any = {
-      Id: Number(this.form.controls.Id.value),
-      FirstName: Number(this.form.controls.FirstName.value),
-      LastName: this.form.controls.LastName.value,
-      BirthDate: this.form.controls.BirthDate.value,
-      TelephoneNumber: this.form.controls.TelephoneNumber.value,
-      Email: this.form.controls.Email.value,
-      CivilStatus: this.form.controls.CivilStatus.value,
-      Disabled: this.form.controls.Disabled.value,
-    };
+  handleSubmit(): void {
+    const request: Contact = new Contact(
+      Number(this.form.controls.Id.value),
+      this.form.controls.FirstName.value,
+      this.form.controls.LastName.value,
+      this.form.controls.TelephoneNumber.value,
+      this.form.controls.BirthDate.value,
+      this.form.controls.Email.value,
+      this.form.controls.CivilStatus.value,
+      this.form.controls.Disabled.value,
+      );
 
     const data = {
       operation: this.data.action,
@@ -61,6 +63,8 @@ export class ContactDialogComponent implements OnInit {
     this.http.postData("api/Contact", data)
       .subscribe(res =>{
         this.closeDialog(res.success);
+      },err=> {
+        console.warn(err);
       })
 
   }
@@ -72,16 +76,16 @@ export class ContactDialogComponent implements OnInit {
   swithOption(option: string){
     switch (option) {
       case 'create':
-        const init = {
-          Id: 0,
-          FirstName: null,
-          LastName: null,
-          BirthDate: null,
-          TelephoneNumber: null,
-          Email: null,
-          CivilStatus: null,
-          Disabled: false
-        };
+        const init = new Contact(
+          0,
+          null!,
+          null!,
+          null!,
+          null!,
+          null!,
+          null!,
+          false
+        );
         this.data.element =  init;
         this.textButton = "Create";
         this.colorButton = "primary";
@@ -118,7 +122,6 @@ export class ContactDialogComponent implements OnInit {
     }
 
   }
-
 
 
 }

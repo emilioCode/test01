@@ -6,6 +6,7 @@
             <mat-form-field appearance="legacy" class="with">
                 <mat-label>First Name</mat-label>
                 <input matInput autocomplete="off" formControlName="FirstName" required>
+                <mat-error *ngIf="form.get('FirstName')?.hasError('required')">First Name is required</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
@@ -13,6 +14,7 @@
             <mat-form-field appearance="legacy" class="with">
                 <mat-label>Last Name</mat-label>
                 <input matInput autocomplete="off" formControlName="LastName">
+                <mat-error *ngIf="form.get('LastName')?.hasError('required')">Last Name is required</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
@@ -20,21 +22,30 @@
             <mat-form-field appearance="legacy" class="with">
                 <mat-label>TelephoneNumber</mat-label>
                 <input matInput autocomplete="off" formControlName="TelephoneNumber">
-                <mat-error *ngIf="form.get('TelephoneNumber')?.hasError('pattern')">Datos invalidos</mat-error>
+                <mat-error *ngIf="form.get('TelephoneNumber')?.hasError('pattern')">Formato invalidos</mat-error>
+                <mat-error *ngIf="form.get('TelephoneNumber')?.hasError('required')">TelephoneNumber is required</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
         <mat-grid-tile [colspan]="3" [rowspan]="1">
-            <mat-form-field appearance="legacy" class="with">
-                <mat-label>BirthDate</mat-label>
-                <input matInput autocomplete="off" type="date" formControlName="BirthDate">
+            <mat-form-field appearance="legacy" >
+              <mat-label>BirthDate</mat-label>
+              <input matInput [matDatepicker]="picker" autocomplete="off" formControlName="BirthDate">
+              <mat-error *ngIf="form.get('BirthDate')?.hasError('required')">BirthDate is required</mat-error>
+              <mat-error *ngIf="form.get('BirthDate')?.hasError('pattern')">Datos invalidos</mat-error>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
         </mat-grid-tile>
+
+
 
         <mat-grid-tile [colspan]="3" [rowspan]="1">
             <mat-form-field appearance="legacy" class="with">
                 <mat-label>E-mail</mat-label>
                 <input matInput autocomplete="off" type="email" formControlName="Email">
+                <mat-hint>example@domain.com</mat-hint>
+                <mat-error *ngIf="form.get('Email')?.hasError('email')">Datos invalidos</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
@@ -45,6 +56,7 @@
                     <mat-option>-- None --</mat-option>
                     <mat-option *ngFor="let civilStatus of civilStatuses" [value]="civilStatus">{{ civilStatus }}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="form.get('CivilStatus')?.hasError('required')">CivilStatus is required</mat-error>
             </mat-form-field>
         </mat-grid-tile>
 
