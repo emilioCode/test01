@@ -300,3 +300,14 @@ svg#clouds {
   flex-direction: column;
   /* align-items: center; */
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.example-spacer{
+  flex: 1 1 auto;
+}
+
+.container-dashboard{
+  margin: 5px 50px 0px 50px;
+}

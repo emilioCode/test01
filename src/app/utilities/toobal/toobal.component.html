@@ -1,0 +1,8 @@
+<mat-toolbar>
+    <span> <mat-icon *ngIf="iconTitle != ''">{{ iconTitle }}</mat-icon> {{ title }}</span>
+    <div class="example-spacer"></div>
+    <button *ngIf="iconButton != '' || textButton != null" mat-stroked-button color="{{ colorButton }}" (click)="clickBtn()">
+      <span class="material-icons">{{ iconButton }}</span> {{ textButton }}
+    </button>
+</mat-toolbar>
+
