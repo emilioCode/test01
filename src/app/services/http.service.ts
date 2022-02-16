@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class HttpService {
   public route: Router;
   public baseUrlService = "http://localhost:5000/";
-  public headers = new HttpHeaders().set("content-type", "application/json");
+  public headers = new HttpHeaders().set("content-type", "application/json").set("Access-Control-Allow-Credentials", "true");
   public http;
 
   constructor(
