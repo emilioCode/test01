@@ -30,7 +30,7 @@ export class ReverseComponent implements OnInit {
     const array = String(value).split('')
     const res = array.sort((a, b) => (a < b ? -1 : 1))
 
-    this.result2 = "result: " + res.join(',');//strValue.split("").reverse().join('');
+    this.result2 = "result: " + res.join(',');
   }
 
   IntercambiarValores(){
